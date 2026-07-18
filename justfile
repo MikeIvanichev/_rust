@@ -25,8 +25,11 @@ check-deny:
 check-pre-commit:
     prek run --all-files
 
-# Runs all lints (fmt, clippy, deny, pre-commit hooks)
-lint: check-fmt clippy check-deny check-pre-commit
+check-committed:
+    committed main..HEAD
+
+# Runs all lints (fmt, clippy, deny, pre-commit hooks, commit messages)
+lint: check-fmt clippy check-deny check-pre-commit check-committed
 
 test *flags:
     cargo nextest run --cargo-profile testing --no-tests=pass {{ flags }}
@@ -36,11 +39,19 @@ doc *flags:
 
 [private]
 _assert-clean:
-    {{ if `test -z "$(git status --porcelain --untracked-files=no)" && echo clean || echo dirty` == "dirty" {
-        error("working tree is dirty — commit or stash changes first")
-    } else {
-        ""
-    } }}
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    if [[ -d .jj ]]; then
+        status="$(jj diff --summary)"
+    else
+        status="$(git status --porcelain)"
+    fi
+
+    if [[ -n "$status" ]]; then
+        echo "working copy has changes — start from a clean Git or jj state before running just fix" >&2
+        exit 1
+    fi
 
 # Auto-fix formatting and lint warnings (requires clean working tree)
 fix: _assert-clean

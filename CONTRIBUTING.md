@@ -2,32 +2,40 @@
 
 ## Getting Started
 
-### Rust
+### Development Environment
 
-Install [rustup](https://rustup.rs/), then clone the repo. The pinned nightly toolchain
-will be installed automatically on first `cargo` invocation via `rust-toolchain.toml`.
+Install and activate [mise](https://mise.jdx.dev/installing-mise.html) using the method appropriate for your operating system. Shell activation makes mise select project-specific tool versions when you enter the repository. Then provision the development environment from the repository root:
 
-### Development Tools
+```sh
+mise install
+```
+
+Mise reads the pinned Rust toolchain from `rust-toolchain.toml` and installs the exact development-tool versions declared in `mise.toml`. Cargo-backed tools explicitly wait for Rust to be available, so this also works on a machine without an existing Rust installation. Mise delegates Rust installation to rustup and reuses an initialized standard rustup setup when one is already present.
+
+Mise stores tool versions centrally and selects them according to the configuration for the current directory. Multiple projects can therefore use different versions of the same tool; outside this repository, another project, global mise configuration, or the system environment takes precedence. If shell activation is unavailable, prefix a command with `mise exec --`, for example `mise exec -- just lint`.
+
+Installing these tools globally through a system package manager is entirely reasonable, but a shared project benefits from treating each development tool like any other dependency: it has a version selected for this repository. Using `mise install` makes contributor environments reproducible, lets CI consume the same pins where it uses mise, and makes upgrades explicit and reviewable.
+
+Commands remain exposed through `just`; run `just` to list them.
+
+### Managed Development Tools
+
+`mise.toml` is the source of truth for the complete version list. It currently manages:
 
 | Tool | Used by |
 |---|---|
-| [just](https://github.com/casey/just) | Command runner (`justfile`) |
+| [just](https://github.com/casey/just) | Project command runner (`justfile`) |
 | [cargo-deny](https://github.com/EmbarkStudios/cargo-deny) | `just check-deny` — license, ban, and advisory checks |
+| [cargo-hack](https://github.com/taiki-e/cargo-hack) | Feature-matrix checks in CI |
 | [cargo-hakari](https://github.com/guppy-rs/guppy/tree/main/tools/cargo-hakari) | `just hakari` — workspace-hack dependency unification |
-| [git-cliff](https://github.com/orhun/git-cliff) | `just changelog` — changelog generation |
 | [cargo-nextest](https://github.com/nextest-rs/nextest) | `just test` — test runner |
+| [cargo-llvm-cov](https://github.com/taiki-e/cargo-llvm-cov) | Coverage generation in CI |
+| [clippy-sarif](https://github.com/psastras/sarif-rs) and `sarif-fmt` | Clippy code-scanning reports in CI |
+| [committed](https://github.com/crate-ci/committed) | Conventional Commit checks |
+| [git-cliff](https://github.com/orhun/git-cliff) | `just changelog` — changelog generation |
 | [prek](https://github.com/j178/prek) | `just check-pre-commit` — pre-commit hooks |
 | [Taplo](https://github.com/tamasfe/taplo) | `just fmt` / `just check-fmt` — TOML formatting |
 | [yamlfmt](https://github.com/google/yamlfmt) | `just fmt` / `just check-fmt` — YAML formatting |
-
-Feel free to install these through your preferred package manager. If you don't want to
-bother, all of these tools are also written in Rust. The downside is they won't
-auto-update; rerun the command to update them.
-
-```sh
-cargo install --locked just cargo-deny cargo-hakari cargo-nextest git-cliff prek taplo-cli
-go install github.com/google/yamlfmt/cmd/yamlfmt@latest
-```
 
 ## Workspace Layout
 

@@ -14,10 +14,11 @@
 
 ## Commands
 
+Install and activate [mise](https://mise.jdx.dev/installing-mise.html), then run `mise install` to provision the pinned Rust toolchain and development tools.
 Use `just` — run `just` to list all recipes. Prefer just recipes over raw cargo commands.
 
 <!-- LINT.IfChange(command_recipes) -->
-- `just lint` — run all lints (fmt, clippy, deny, pre-commit). Always run after making changes.
+- `just lint` — run all lints, hooks, and commit-message checks. Always run after making changes.
 - `just test` — run all tests with optimized third-party dependencies
 - `just doc` — build docs
 <!-- LINT.ThenChange(//README.md:command_recipes) -->
