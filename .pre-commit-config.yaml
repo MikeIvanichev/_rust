@@ -30,7 +30,10 @@ repos:
   - repo: https://github.com/crate-ci/committed
     # LINT.IfChange(committed_version)
     rev: v1.1.11
-    # LINT.ThenChange(//.github/workflows/committed.yaml:committed_version)
+    # LINT.ThenChange(
+    #     //.github/workflows/committed.yaml:committed_version,
+    #     //mise.toml:committed_version,
+    # )
     hooks:
       - id: committed
   - repo: https://github.com/simonepri/ifttt-lint

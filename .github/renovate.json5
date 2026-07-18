@@ -43,6 +43,19 @@
       packageNameTemplate: 'j178/prek',
       datasourceTemplate: 'github-releases',
     },
+    {
+      customType: 'regex',
+      managerFilePatterns: [
+        '/^\\.github/workflows/ci\\.yaml$/',
+      ],
+      matchStrings: [
+        'version:\\s*"(?<currentValue>\\d+\\.\\d+\\.\\d+)"\\s*# MISE_VERSION',
+      ],
+      depNameTemplate: 'mise',
+      packageNameTemplate: 'jdx/mise',
+      datasourceTemplate: 'github-releases',
+      extractVersionTemplate: '^v(?<version>.*)$',
+    },
   ],
   packageRules: [
     {
@@ -78,18 +91,17 @@
       automerge: true,
     },
     {
-      commitMessageTopic: 'Prek',
+      commitMessageTopic: 'Mise',
       matchManagers: [
         'custom.regex',
       ],
       matchDepNames: [
-        'prek',
+        'mise',
       ],
-      extractVersion: '^v(?<version>\\d+\\.\\d+\\.\\d+)',
       schedule: [
         '* * * * *',
       ],
-      automerge: true,
+      minimumReleaseAge: null,
     },
     {
       matchManagers: [
@@ -99,8 +111,34 @@
         'minor',
         'patch',
       ],
-      automerge: true,
       groupName: 'compatible (actions)',
+    },
+    {
+      matchManagers: [
+        'mise',
+      ],
+      matchUpdateTypes: [
+        'minor',
+        'patch',
+      ],
+      groupName: 'compatible (mise)',
+    },
+    {
+      commitMessageTopic: 'Prek',
+      matchPackageNames: [
+        'j178/prek',
+      ],
+      extractVersion: '^v(?<version>\\d+\\.\\d+\\.\\d+)',
+      schedule: [
+        '* * * * *',
+      ],
+      groupName: 'Prek',
+    },
+    {
+      matchPackageNames: [
+        'crate-ci/committed',
+      ],
+      groupName: 'committed',
     },
     // Goals:
     // - Keep version reqs low, ignoring compatible normal/build dependencies
@@ -148,7 +186,6 @@
       matchUpdateTypes: [
         'patch',
       ],
-      automerge: true,
       groupName: 'compatible (dev)',
     },
     {
@@ -163,7 +200,6 @@
         'minor',
         'patch',
       ],
-      automerge: true,
       groupName: 'compatible (dev)',
     },
   ],
