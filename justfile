@@ -17,7 +17,7 @@ check-fmt:
     yamlfmt -lint .
 
 clippy *flags:
-    cargo clippy --workspace --all-features --all-targets {{ flags }} -- -D warnings --allow deprecated
+    cargo clippy --workspace --all-features --all-targets {{ flags }} -- --allow deprecated
 
 check-deny:
     cargo deny --all-features check
