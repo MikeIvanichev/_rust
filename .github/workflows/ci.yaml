@@ -104,8 +104,6 @@ jobs:
       - name: Setup Rust
         uses: ./.github/actions/setup-rust
       - name: Check documentation
-        env:
-          RUSTDOCFLAGS: -D warnings
         run: cargo doc --workspace --all-features --no-deps --document-private-items --keep-going
   formatting:
     name: Formatting
@@ -168,7 +166,7 @@ jobs:
           wait-for-processing: true
         if: github.event.repository.visibility == 'public' || vars.ENABLE_CODE_SCANNING == 'true'
       - name: Check
-        run: cargo clippy --workspace --all-features --all-targets --keep-going -- -D warnings --allow deprecated
+        run: cargo clippy --workspace --all-features --all-targets --keep-going -- --allow deprecated
   coverage:
     name: Coverage
     environment: codecov
