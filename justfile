@@ -1,5 +1,7 @@
 export RUST_BACKTRACE := env_var_or_default("RUST_BACKTRACE", "short")
 
+doc_args := "--all-features --no-deps --keep-going"
+
 default:
   just --list
 
@@ -35,7 +37,10 @@ test *flags:
     cargo nextest run --cargo-profile testing --no-tests=pass {{ flags }}
 
 doc *flags:
-    RUSTDOCFLAGS="--cfg docsrs" cargo doc --all-features --no-deps --document-private-items --keep-going {{ flags }}
+    RUSTDOCFLAGS="--cfg docsrs" cargo doc {{ doc_args }} --document-private-items {{ flags }}
+
+doc-pub *flags:
+    RUSTDOCFLAGS="--cfg docsrs" cargo doc {{ doc_args }} {{ flags }}
 
 [private]
 _assert-clean:
