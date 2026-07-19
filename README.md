@@ -20,5 +20,6 @@ Use `just` to discover and run common tasks:
 <!-- LINT.IfChange(command_recipes) -->
 - `just lint` — run all lints, hooks, and commit-message checks. Always run after making changes.
 - `just test` — run all tests with optimized third-party dependencies
-- `just doc` — build docs
+- `just doc` — build documentation including private items
+- `just doc-pub` — build public API documentation
 <!-- LINT.ThenChange(//AGENTS.md:command_recipes) -->

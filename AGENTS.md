@@ -20,7 +20,8 @@ Use `just` — run `just` to list all recipes. Prefer just recipes over raw carg
 <!-- LINT.IfChange(command_recipes) -->
 - `just lint` — run all lints, hooks, and commit-message checks. Always run after making changes.
 - `just test` — run all tests with optimized third-party dependencies
-- `just doc` — build docs
+- `just doc` — build documentation including private items
+- `just doc-pub` — build public API documentation
 <!-- LINT.ThenChange(//README.md:command_recipes) -->
 
 All recipes accept passthrough flags: `just test -p some-crate`, `just clippy -- -W clippy::pedantic`.
@@ -37,5 +38,7 @@ If a `.jj/` directory exists, the project uses [jj](https://martinvonz.github.io
 - Workspace-level lints in root `Cargo.toml` — do not add crate-level lint attributes
 - New crates must set `[lints] workspace = true` and inherit shared `[package]` fields
   with `.workspace = true`
+- New publishable library crates must set `[package.metadata.docs.rs] all-features = true`
+  so docs.rs includes feature-gated public APIs
 - Use narrow `LINT.IfChange` / `LINT.ThenChange` directives when duplicated
   cross-file content must stay in sync and cannot be eliminated.
