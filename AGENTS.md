@@ -38,7 +38,7 @@ If a `.jj/` directory exists, the project uses [jj](https://martinvonz.github.io
 - Workspace-level lints in root `Cargo.toml` — do not add crate-level lint attributes
 - New crates must set `[lints] workspace = true` and inherit shared `[package]` fields
   with `.workspace = true`
-- New publishable library crates must set `[package.metadata.docs.rs] all-features = true`
-  so docs.rs includes feature-gated public APIs
+- New publishable library crates must set `[package.metadata.docs.rs]` with
+  `all-features = true` and `rustdoc-args = ["--generate-link-to-definition"]`
 - Use narrow `LINT.IfChange` / `LINT.ThenChange` directives when duplicated
   cross-file content must stay in sync and cannot be eliminated.
