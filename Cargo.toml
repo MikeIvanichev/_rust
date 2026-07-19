@@ -15,9 +15,6 @@ rust-version = "1.97.0"
 # )
 publish = false
 
-[workspace.dependencies]
-automod = "1.0.14"
-
 [workspace.lints.rust]
 rust_2018_idioms = { level = "warn", priority = -1 }
 non_ascii_idents = "warn"
