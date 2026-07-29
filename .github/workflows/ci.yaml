@@ -105,6 +105,8 @@ jobs:
         uses: ./.github/actions/setup-rust
       - name: Check documentation
         run: cargo doc --workspace --all-features --no-deps --document-private-items --keep-going
+      - name: Test documentation
+        run: cargo test --profile testing --workspace --all-features --doc --no-fail-fast
   formatting:
     name: Formatting
     runs-on: ubuntu-latest

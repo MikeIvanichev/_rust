@@ -35,6 +35,10 @@ lint: check-fmt clippy check-deny check-pre-commit check-committed
 
 test *flags:
     cargo nextest run --cargo-profile testing --no-tests=pass {{ flags }}
+    cargo test --profile testing --workspace --all-features --doc --no-fail-fast {{ flags }}
+
+test-doc *flags:
+    cargo test --profile testing --workspace --all-features --doc --no-fail-fast {{ flags }}
 
 doc *flags:
     RUSTDOCFLAGS="--cfg docsrs" cargo doc {{ doc_args }} --document-private-items {{ flags }}
