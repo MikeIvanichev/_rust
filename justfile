@@ -30,8 +30,11 @@ check-pre-commit:
 check-committed:
     committed main..HEAD
 
-# Runs all lints (fmt, clippy, deny, pre-commit hooks, commit messages)
-lint: check-fmt clippy check-deny check-pre-commit check-committed
+check-changelog:
+    git-cliff | diff -u CHANGELOG.md -
+
+# Runs all lints (fmt, clippy, deny, pre-commit hooks, commit messages, changelog)
+lint: check-fmt clippy check-deny check-pre-commit check-committed check-changelog
 
 test *flags:
     cargo nextest run --cargo-profile testing --no-tests=pass {{ flags }}
@@ -69,7 +72,7 @@ fix: _assert-clean
     cargo clippy --workspace --all-targets --fix --allow-dirty --allow-staged
 
 changelog:
-    git cliff -o CHANGELOG.md
+    git-cliff -o CHANGELOG.md
 
 hakari:
     cargo hakari manage-deps
