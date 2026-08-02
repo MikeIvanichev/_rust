@@ -100,6 +100,12 @@ Specifically, we would encourage:
 - File renames be isolated into their own commit
 - Add tests in a commit before their feature or fix, showing the current behavior
 
+Every commit on `main` must be green.
+
+PRs are squashed by default. Use a merge commit when the history itself is worth
+keeping — what was tried, what was ruled out, how a bug was tracked down — or when
+merging in a line of history, such as updates from the template.
+
 [issues]: {{REPOSITORY}}/issues
 [new issue]: {{REPOSITORY}}/issues/new
 [all issues]: {{REPOSITORY}}/issues?utf8=%E2%9C%93&q=is%3Aissue
