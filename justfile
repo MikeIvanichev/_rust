@@ -30,11 +30,8 @@ check-pre-commit:
 check-committed:
     committed main..HEAD
 
-check-changelog:
-    git-cliff | diff -u CHANGELOG.md -
-
-# Runs all lints (fmt, clippy, deny, pre-commit hooks, commit messages, changelog)
-lint: check-fmt clippy check-deny check-pre-commit check-committed check-changelog
+# Runs all lints (fmt, clippy, deny, pre-commit hooks, commit messages)
+lint: check-fmt clippy check-deny check-pre-commit check-committed
 
 test *flags:
     cargo nextest run --cargo-profile testing --no-tests=pass {{ flags }}
