@@ -26,19 +26,19 @@ runs:
         toolchain: ${{ env.RUSTUP_TOOLCHAIN }}
         components: ${{ inputs.components }}
     - name: Initialize cache
-      uses: Swatinem/rust-cache@c19371144df3bb44fab255c43d04cbc2ab54d1c4 # v2.9.1
+      uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
     - name: Install cargo-hack
       if: ${{ inputs['cargo-hack'] == 'true' }}
-      uses: taiki-e/install-action@16b05812d776ae1dfaabc8277e421fb6d2506419 # v2.82.7
+      uses: taiki-e/install-action@82cd3e7658a6f96c86c0234aeeda1748937cb0a1 # v2.85.13
       with:
         tool: cargo-hack
     - name: Install cargo-nextest
       if: ${{ inputs['cargo-nextest'] == 'true' }}
-      uses: taiki-e/install-action@16b05812d776ae1dfaabc8277e421fb6d2506419 # v2.82.7
+      uses: taiki-e/install-action@82cd3e7658a6f96c86c0234aeeda1748937cb0a1 # v2.85.13
       with:
         tool: cargo-nextest
     - name: Install cargo-llvm-cov
       if: ${{ inputs['cargo-llvm-cov'] == 'true' }}
-      uses: taiki-e/install-action@16b05812d776ae1dfaabc8277e421fb6d2506419 # v2.82.7
+      uses: taiki-e/install-action@82cd3e7658a6f96c86c0234aeeda1748937cb0a1 # v2.85.13
       with:
         tool: cargo-llvm-cov

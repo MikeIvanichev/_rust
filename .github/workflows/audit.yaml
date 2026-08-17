@@ -41,7 +41,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Lint advisories
-        uses: EmbarkStudios/cargo-deny-action@bb137d7af7e4fb67e5f82a49c4fce4fad40782fe # v2.0.20
+        uses: EmbarkStudios/cargo-deny-action@3c6349835b2b7b196a839186cb8b78e02f7b5f25 # v2.1.1
         with:
           command: check advisories
           rust-version: ${{ env.RUSTUP_TOOLCHAIN }}
@@ -58,7 +58,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Lint bans, licenses, and sources
-        uses: EmbarkStudios/cargo-deny-action@bb137d7af7e4fb67e5f82a49c4fce4fad40782fe # v2.0.20
+        uses: EmbarkStudios/cargo-deny-action@3c6349835b2b7b196a839186cb8b78e02f7b5f25 # v2.1.1
         with:
           command: check bans licenses sources
           rust-version: ${{ env.RUSTUP_TOOLCHAIN }}
@@ -75,7 +75,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Run zizmor
-        uses: zizmorcore/zizmor-action@192e21d79ab29983730a13d1382995c2307fbcaa # v0.5.7
+        uses: zizmorcore/zizmor-action@3dc1ecc9bcb9e94e9b2c709687979e1298497054 # v0.6.2
         with:
           # Public repos get code scanning automatically. Private repos can set
           # ENABLE_CODE_SCANNING=true when GitHub code scanning is enabled.
