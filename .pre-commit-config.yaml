@@ -45,6 +45,6 @@ repos:
       - id: ifttt-lint-diff
         stages: [pre-push]
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
-    rev: v1.25.2
+    rev: v1.29.0
     hooks:
       - id: zizmor
