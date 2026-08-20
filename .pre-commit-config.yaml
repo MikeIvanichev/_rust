@@ -1,7 +1,7 @@
 default_install_hook_types: ["pre-commit", "pre-push", "commit-msg"]
 default_language_version:
   # LINT.IfChange(msrv)
-  rust: "1.97.1"
+  rust: "1.98.0"
   # LINT.ThenChange(//Cargo.toml:msrv)
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
