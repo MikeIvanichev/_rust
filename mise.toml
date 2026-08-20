@@ -18,7 +18,7 @@ committed = "1.1.11"
 git-cliff = "2.13.1"
 just = "1.58.0"
 # LINT.IfChange(prek_version)
-prek = "0.4.13"
+prek = "0.4.14"
 # LINT.ThenChange(//.github/workflows/pre-commit.yaml:prek_version)
 taplo = "0.10.0"
 yamlfmt = "0.21.0"
