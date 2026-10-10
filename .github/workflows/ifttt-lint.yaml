@@ -21,5 +21,5 @@ jobs:
           persist-credentials: false
       - name: Run ifttt-lint
         # LINT.IfChange(ifttt_lint_version)
-        uses: simonepri/ifttt-lint@9a13181b9f5f3dc365a898ebd312f74c263309be # v0.11.0
+        uses: simonepri/ifttt-lint@41ad27c50e223731b5f33d7cd45a215259211692 # v0.11.2
         # LINT.ThenChange(//.pre-commit-config.yaml:ifttt_lint_version)
