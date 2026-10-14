@@ -65,6 +65,7 @@
       customType: 'regex',
       managerFilePatterns: [
         '/^\\.github/actions/setup-rust/action\\.yaml$/',
+        '/^\\.github/workflows/audit\\.yaml$/',
       ],
       matchStrings: [
         'version:\\s*"(?<currentValue>\\d+\\.\\d+\\.\\d+)"\\s*# MISE_VERSION',

@@ -29,11 +29,14 @@ check-deny:
 check-pre-commit:
     prek run --all-files
 
+check-actions:
+    jactionlint
+
 check-committed:
     committed main..HEAD
 
-# Runs all lints (fmt, clippy, deny, pre-commit hooks, commit messages)
-lint: check-fmt clippy check-deny check-pre-commit check-committed
+# Runs all lints (fmt, clippy, deny, pre-commit hooks, workflows, commit messages)
+lint: check-fmt clippy check-deny check-pre-commit check-actions check-committed
 
 test *flags:
     cargo nextest run --cargo-profile testing --no-tests=pass {{ flags }}

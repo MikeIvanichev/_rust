@@ -38,9 +38,13 @@ committed = "1.1.11"
 #     //.pre-commit-config.yaml:committed_version,
 # )
 git-cliff = "2.13.1"
+# LINT.IfChange(jactionlint_version)
+jactionlint = "2.1.0"
+# LINT.ThenChange(//.github/workflows/audit.yaml:jactionlint_version)
 just = "1.58.0"
 # LINT.IfChange(prek_version)
 prek = "0.5.5"
 # LINT.ThenChange(//.github/workflows/pre-commit.yaml:prek_version)
+shellcheck = "0.11.0"
 taplo = "0.10.0"
 yamlfmt = "0.21.0"
