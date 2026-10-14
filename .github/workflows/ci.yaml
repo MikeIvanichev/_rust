@@ -38,7 +38,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Rust
-        uses: ./.github/actions/setup-rust
+        uses: $/.github/actions/setup-rust
         with:
           cargo-hack: "true"
           cargo-nextest: "true"
@@ -55,7 +55,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Rust
-        uses: ./.github/actions/setup-rust
+        uses: $/.github/actions/setup-rust
         with:
           cargo-hack: "true"
       - name: Check declared MSRV
@@ -69,7 +69,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Rust
-        uses: ./.github/actions/setup-rust
+        uses: $/.github/actions/setup-rust
       - name: Downgrade direct dependencies to minimal versions
         run: cargo +"$RUST_NIGHTLY" generate-lockfile -Z direct-minimal-versions
       - name: Compile with minimal versions
@@ -83,7 +83,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Rust
-        uses: ./.github/actions/setup-rust
+        uses: $/.github/actions/setup-rust
       - name: Is lockfile updated?
         run: cargo update --workspace --locked
   docs:
@@ -95,7 +95,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Rust
-        uses: ./.github/actions/setup-rust
+        uses: $/.github/actions/setup-rust
       - name: Check documentation
         run: cargo doc --workspace --all-features --no-deps --document-private-items --keep-going
       - name: Test documentation
@@ -109,7 +109,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Rust and formatting tools
-        uses: ./.github/actions/setup-rust
+        uses: $/.github/actions/setup-rust
         with:
           tools: taplo yamlfmt
       - name: Check formatting
@@ -133,7 +133,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Rust
-        uses: ./.github/actions/setup-rust
+        uses: $/.github/actions/setup-rust
       - name: Install clippy-sarif and sarif-fmt
         # These crates aren't in taiki-e/install-action's tool manifest, so it
         # would fall back to cargo-binstall by default — which hits
@@ -172,7 +172,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Rust
-        uses: ./.github/actions/setup-rust
+        uses: $/.github/actions/setup-rust
         with:
           cargo-nextest: "true"
           cargo-llvm-cov: "true"
