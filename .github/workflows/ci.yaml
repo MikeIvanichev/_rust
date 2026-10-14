@@ -149,6 +149,9 @@ jobs:
           fallback: cargo-install
         if: github.event.repository.visibility == 'public' || vars.ENABLE_CODE_SCANNING == 'true'
       - name: Check (SARIF)
+        # `shell: bash` adds pipefail, so a clippy failure is not hidden by the
+        # later commands in the pipeline.
+        shell: bash
         run: >
           cargo clippy --workspace --all-features --all-targets --message-format=json | clippy-sarif | tee clippy-results.sarif | sarif-fmt
 
