@@ -31,7 +31,7 @@ runs:
     - name: Install Rust through mise
       uses: jdx/mise-action@9149ea85001c7435d5a66bb127d6a1b6227cb0a5 # v5.0.0
       with:
-        version: "2026.10.7" # MISE_VERSION
+        version: "2026.10.10" # MISE_VERSION
         install_args: rust mr-boxington ${{ inputs.channel && format('rust@{0}', inputs.channel) || '' }} ${{ inputs.tools }}
     - name: Update the Rust channel
       if: ${{ inputs.channel != '' }}

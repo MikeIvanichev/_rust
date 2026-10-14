@@ -96,7 +96,7 @@ jobs:
       - name: Install jactionlint
         uses: jdx/mise-action@9149ea85001c7435d5a66bb127d6a1b6227cb0a5 # v5.0.0
         with:
-          version: "2026.10.7" # MISE_VERSION
+          version: "2026.10.10" # MISE_VERSION
           install_args: jactionlint shellcheck
       - name: Run jactionlint
         # LINT.IfChange(jactionlint_version)
