@@ -23,6 +23,7 @@ jobs:
             rust: "nightly"
     continue-on-error: ${{ matrix.rust != 'stable' }}
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
     env:
       CARGO_PROFILE_DEV_DEBUG: line-tables-only
     steps:
@@ -45,6 +46,7 @@ jobs:
   latest:
     name: Check latest dependencies
     runs-on: blacksmith-2vcpu-ubuntu-2404
+    timeout-minutes: 30
     env:
       CARGO_RESOLVER_INCOMPATIBLE_RUST_VERSIONS: allow
     steps:

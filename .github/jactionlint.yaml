@@ -3,6 +3,8 @@ self-hosted-runner:
   labels:
     - blacksmith-*
 rules:
+  missing-timeout:
+    default-minutes: 30
   superfluous-actions: off
   # Renovate tracks moving refs such as `# v1` and `# master`, so the pinned
   # SHA lags the ref until Renovate bumps it.
