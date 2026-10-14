@@ -29,7 +29,7 @@ runs:
       shell: bash
       run: echo "MISE_ENV=ci" >> "$GITHUB_ENV"
     - name: Install Rust through mise
-      uses: jdx/mise-action@9149ea85001c7435d5a66bb127d6a1b6227cb0a5 # v5.0.0
+      uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
       with:
         version: "2026.10.10" # MISE_VERSION
         install_args: rust mr-boxington ${{ inputs.channel && format('rust@{0}', inputs.channel) || '' }} ${{ inputs.tools }}
@@ -51,16 +51,16 @@ runs:
       uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
     - name: Install cargo-hack
       if: ${{ inputs['cargo-hack'] == 'true' }}
-      uses: taiki-e/install-action@82cd3e7658a6f96c86c0234aeeda1748937cb0a1 # v2.85.13
+      uses: taiki-e/install-action@ab6895351a88b908e96a4697860d4ffea5e57dbe # v2.87.27
       with:
         tool: cargo-hack
     - name: Install cargo-nextest
       if: ${{ inputs['cargo-nextest'] == 'true' }}
-      uses: taiki-e/install-action@82cd3e7658a6f96c86c0234aeeda1748937cb0a1 # v2.85.13
+      uses: taiki-e/install-action@ab6895351a88b908e96a4697860d4ffea5e57dbe # v2.87.27
       with:
         tool: cargo-nextest
     - name: Install cargo-llvm-cov
       if: ${{ inputs['cargo-llvm-cov'] == 'true' }}
-      uses: taiki-e/install-action@82cd3e7658a6f96c86c0234aeeda1748937cb0a1 # v2.85.13
+      uses: taiki-e/install-action@ab6895351a88b908e96a4697860d4ffea5e57dbe # v2.87.27
       with:
         tool: cargo-llvm-cov
