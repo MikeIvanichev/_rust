@@ -1,10 +1,32 @@
-[settings]
-idiomatic_version_file_enable_tools = ["rust"]
-
 [tools]
+# The first toolchain is the development default; mise.ci.toml makes the
+# MSRV the default in CI.
+rust = [
+  { version = "nightly-2026-10-05", components = [
+    "rustc",
+    "cargo",
+    "rustfmt",
+    "rust-std",
+    "rust-docs",
+    "rust-analyzer",
+    "llvm-tools-preview",
+    "clippy",
+    "rust-src",
+  ], mr_boxington = true },
+  # LINT.IfChange(msrv)
+  { version = "1.99.0", components = [
+    "rustc",
+    "cargo",
+    "rustfmt",
+    "rust-std",
+    "clippy",
+    "llvm-tools-preview",
+  ] },
+  # LINT.ThenChange(//Cargo.toml:msrv)
+]
+mr-boxington = "1.23.0"
 "cargo:cargo-deny" = { version = "0.20.2", depends = "rust" }
 "cargo:cargo-hack" = { version = "0.6.45", depends = "rust" }
-"cargo:cargo-hakari" = { version = "0.9.38", depends = "rust" }
 "cargo:cargo-llvm-cov" = { version = "0.8.7", depends = "rust" }
 "cargo:cargo-nextest" = { version = "0.9.143", depends = "rust" }
 "cargo:clippy-sarif" = { version = "0.8.0", depends = "rust" }
@@ -18,7 +40,7 @@ committed = "1.1.11"
 git-cliff = "2.13.1"
 just = "1.58.0"
 # LINT.IfChange(prek_version)
-prek = "0.4.13"
+prek = "0.5.5"
 # LINT.ThenChange(//.github/workflows/pre-commit.yaml:prek_version)
 taplo = "0.10.0"
 yamlfmt = "0.21.0"

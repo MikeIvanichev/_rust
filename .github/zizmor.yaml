@@ -1,4 +1,9 @@
 rules:
+  # It resolves a comment like `# master` live, so every upstream push fails
+  # CI until Renovate bumps the hash. Renovate reads only a one-word comment,
+  # and composite actions take no ignore entries here.
+  ref-version-mismatch:
+    disable: true
   superfluous-actions:
     # https://github.com/zizmorcore/zizmor/issues/1817
     disable: true

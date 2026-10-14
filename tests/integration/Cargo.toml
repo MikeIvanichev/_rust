@@ -9,6 +9,3 @@ include.workspace = true
 
 [lints]
 workspace = true
-
-[dependencies]
-workspace-hack = { version = "0.0.0", path = "../../crates/workspace-hack" }

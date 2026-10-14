@@ -7,7 +7,6 @@
 <!-- LINT.IfChange(layout_rules) -->
 - `crates/` — library crates and reusable supporting crates
 - `tests/` — workspace member crates that build integration and end-to-end test binaries
-- `crates/workspace-hack/` — cargo-hakari dependency unification (auto-generated, do not edit)
 - Reusable test harnesses, fixtures, and helpers belong in `crates/`, not `tests/`
 - Other binary categories should live in their own top-level directories, such as `services/` or `tools/`
 <!-- LINT.ThenChange(//AGENTS.md:layout_rules) -->

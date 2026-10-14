@@ -13,10 +13,12 @@ fmt *flags:
     taplo fmt
     yamlfmt .
 
+# LINT.IfChange(check_fmt)
 check-fmt:
     cargo fmt --all -- --check
     taplo fmt --check
     yamlfmt -lint .
+# LINT.ThenChange(//.github/workflows/ci.yaml:check_fmt)
 
 clippy *flags:
     cargo clippy --workspace --all-features --all-targets {{ flags }} -- --allow deprecated
@@ -63,14 +65,9 @@ _assert-clean:
     fi
 
 # Auto-fix formatting and lint warnings (requires clean working tree)
-fix: _assert-clean
-    just fmt
+fix: _assert-clean fmt
     cargo fix --workspace --allow-dirty --allow-staged
     cargo clippy --workspace --all-targets --fix --allow-dirty --allow-staged
 
 changelog:
     git-cliff -o CHANGELOG.md
-
-hakari:
-    cargo hakari manage-deps
-    cargo hakari generate

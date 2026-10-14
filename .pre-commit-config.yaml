@@ -1,7 +1,7 @@
 default_install_hook_types: ["pre-commit", "pre-push", "commit-msg"]
 default_language_version:
   # LINT.IfChange(msrv)
-  rust: "1.97.1"
+  rust: "1.99.0"
   # LINT.ThenChange(//Cargo.toml:msrv)
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -23,7 +23,7 @@ repos:
         files: \.yml$
   - repo: https://github.com/crate-ci/typos
     # LINT.IfChange(typos_version)
-    rev: v1.48.0
+    rev: v1.50.3
     # LINT.ThenChange(//.github/workflows/spelling.yaml:typos_version)
     hooks:
       - id: typos
@@ -38,7 +38,7 @@ repos:
       - id: committed
   - repo: https://github.com/simonepri/ifttt-lint
     # LINT.IfChange(ifttt_lint_version)
-    rev: v0.10.5
+    rev: v0.11.2
     # LINT.ThenChange(//.github/workflows/ifttt-lint.yaml:ifttt_lint_version)
     hooks:
       - id: ifttt-lint

@@ -7,7 +7,6 @@
 <!-- LINT.IfChange(layout_rules) -->
 - `crates/` — library crates and reusable supporting crates
 - `tests/` — workspace member crates that build integration and end-to-end test binaries
-- `crates/workspace-hack/` — cargo-hakari dependency unification (auto-generated, do not edit)
 - Reusable test harnesses, fixtures, and helpers belong in `crates/`, not `tests/`
 - Other binary categories should live in their own top-level directories, such as `services/` or `tools/`
 <!-- LINT.ThenChange(//README.md:layout_rules) -->
@@ -39,8 +38,9 @@ PR's own commits need not each be green.
 
 ## Conventions
 
-- Edition 2024, resolver 3, nightly rustfmt (pinned in `rust-toolchain.toml`)
-- Conventional commits (enforced by `committed` in CI)
+- Edition 2024, resolver 3, nightly rustfmt (pinned in `mise.toml`)
+- Conventional commits with subjects of at most 50 characters (enforced by `committed` in CI).
+  `just lint` checks every commit since `main`, not only yours
 - Workspace-level lints in root `Cargo.toml` — do not add crate-level lint attributes
 - New crates must set `[lints] workspace = true` and inherit shared `[package]` fields
   with `.workspace = true`

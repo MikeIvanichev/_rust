@@ -10,7 +10,7 @@ Install and activate [mise](https://mise.jdx.dev/installing-mise.html) using the
 mise install
 ```
 
-Mise reads the pinned Rust toolchain from `rust-toolchain.toml` and installs the exact development-tool versions declared in `mise.toml`. Cargo-backed tools explicitly wait for Rust to be available, so this also works on a machine without an existing Rust installation. Mise delegates Rust installation to rustup and reuses an initialized standard rustup setup when one is already present.
+Mise installs the pinned Rust toolchain and the exact development-tool versions declared in `mise.toml`, and runs Cargo through [mr-boxington](https://mr-boxington.jdx.dev/) (`mbx`), a build cache shared across checkouts. Use mise's shims or activation: a `cargo` that bypasses mise gets neither the pinned toolchain nor the cache. Cargo-backed tools explicitly wait for Rust to be available, so this also works on a machine without an existing Rust installation. Mise delegates Rust installation to rustup and reuses an initialized standard rustup setup when one is already present.
 
 Mise stores tool versions centrally and selects them according to the configuration for the current directory. Multiple projects can therefore use different versions of the same tool; outside this repository, another project, global mise configuration, or the system environment takes precedence. If shell activation is unavailable, prefix a command with `mise exec --`, for example `mise exec -- just lint`.
 
@@ -27,12 +27,12 @@ Commands remain exposed through `just`; run `just` to list them.
 | [just](https://github.com/casey/just) | Project command runner (`justfile`) |
 | [cargo-deny](https://github.com/EmbarkStudios/cargo-deny) | `just check-deny` — license, ban, and advisory checks |
 | [cargo-hack](https://github.com/taiki-e/cargo-hack) | Feature-matrix checks in CI |
-| [cargo-hakari](https://github.com/guppy-rs/guppy/tree/main/tools/cargo-hakari) | `just hakari` — workspace-hack dependency unification |
 | [cargo-nextest](https://github.com/nextest-rs/nextest) | `just test` — test runner |
 | [cargo-llvm-cov](https://github.com/taiki-e/cargo-llvm-cov) | Coverage generation in CI |
 | [clippy-sarif](https://github.com/psastras/sarif-rs) and `sarif-fmt` | Clippy code-scanning reports in CI |
 | [committed](https://github.com/crate-ci/committed) | Conventional Commit checks |
 | [git-cliff](https://github.com/orhun/git-cliff) | `just changelog` — changelog generation |
+| [mr-boxington](https://github.com/jdx/mr-boxington) | Every Cargo command — shared build cache |
 | [prek](https://github.com/j178/prek) | `just check-pre-commit` — pre-commit hooks |
 | [Taplo](https://github.com/tamasfe/taplo) | `just fmt` / `just check-fmt` — TOML formatting |
 | [yamlfmt](https://github.com/google/yamlfmt) | `just fmt` / `just check-fmt` — YAML formatting |

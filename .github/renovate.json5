@@ -15,15 +15,33 @@
   },
   customManagers: [
     {
+      // Renovate has no datasource for a dated nightly, so read the date from
+      // the nightly Rust entry in mise.toml and offer the custom datasource below.
+      customType: 'regex',
+      managerFilePatterns: [
+        '/^mise\\.toml$/',
+      ],
+      matchStrings: [
+        '\\{ version = "nightly-(?<currentValue>\\d{4}-\\d{2}-\\d{2})"',
+      ],
+      depNameTemplate: 'rust-nightly',
+      datasourceTemplate: 'custom.rust-nightly',
+      versioningTemplate: 'regex:^(?<major>\\d{4})-(?<minor>\\d{2})-(?<patch>\\d{2})$',
+    },
+    {
       customType: 'regex',
       managerFilePatterns: [
         '/^Cargo\\.toml$/',
         '/^\\.pre-commit-config\\.yaml$/',
-        '/^\\.github/workflows/(audit|ci|pre-commit)\\.yaml$/',
+        '/^\\.github/workflows/(audit|pre-commit)\\.yaml$/',
+        '/^mise(\\.ci)?\\.toml$/',
       ],
       matchStrings: [
         'rust-version\\s*=\\s*"(?<currentValue>\\d+\\.\\d+\\.\\d+)"',
-        'RUSTUP_TOOLCHAIN:\\s*"(?<currentValue>\\d+\\.\\d+\\.\\d+)"',
+        'RUSTUP_TOOLCHAIN(:|\\s*=)\\s*"(?<currentValue>\\d+\\.\\d+\\.\\d+)"',
+        // The MSRV entry in mise.toml's Rust list; the leading newline keeps
+        // the `"cargo:…" = { version = … }` tool entries out.
+        '\\n\\s+\\{ version = "(?<currentValue>\\d+\\.\\d+\\.\\d+)"',
         'rust:\\s*"(?<currentValue>\\d+\\.\\d+\\.\\d+)"',
       ],
       depNameTemplate: 'rust-msrv',
@@ -46,7 +64,7 @@
     {
       customType: 'regex',
       managerFilePatterns: [
-        '/^\\.github/workflows/ci\\.yaml$/',
+        '/^\\.github/actions/setup-rust/action\\.yaml$/',
       ],
       matchStrings: [
         'version:\\s*"(?<currentValue>\\d+\\.\\d+\\.\\d+)"\\s*# MISE_VERSION',
@@ -57,6 +75,16 @@
       extractVersionTemplate: '^v(?<version>.*)$',
     },
   ],
+  customDatasources: {
+    // The newest nightly that ships rustfmt; some nightlies lack it.
+    'rust-nightly': {
+      defaultRegistryUrlTemplate: 'https://rust-lang.github.io/rustup-components-history/x86_64-unknown-linux-gnu/rustfmt.json',
+      format: 'json',
+      transformTemplates: [
+        '{ "releases": [{ "version": last_available }] }',
+      ],
+    },
+  },
   packageRules: [
     {
       // Nightlies release daily; a weekly bump keeps the pinned toolchain
@@ -64,10 +92,10 @@
       // tracking every nightly.
       commitMessageTopic: 'Rust toolchain',
       matchManagers: [
-        'rust-toolchain',
+        'custom.regex',
       ],
-      matchDepTypes: [
-        'toolchain',
+      matchDepNames: [
+        'rust-nightly',
       ],
       schedule: [
         'before 5am on Monday',
@@ -112,6 +140,16 @@
         'patch',
       ],
       groupName: 'compatible (actions)',
+    },
+    {
+      // The rust-nightly custom manager updates the pinned nightly.
+      matchManagers: [
+        'mise',
+      ],
+      matchDepNames: [
+        'rust',
+      ],
+      enabled: false,
     },
     {
       matchManagers: [

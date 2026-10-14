@@ -1,8 +1,13 @@
 name: Setup Rust
-description: Install a Rust toolchain, initialize the cache, and optionally install cargo tools.
+description: >-
+  Install the pinned Rust toolchains through mise with the stable (MSRV) one as the default, initialize the cache, and optionally install cargo tools. Steps that need nightly run `cargo +"$RUST_NIGHTLY"`. A job that needs a moving channel, such as `beta`, sets `channel` and runs `cargo +beta`.
 inputs:
-  components:
-    description: Comma-separated Rust components to install.
+  tools:
+    description: Space-separated extra mise tools to install, such as `just taplo`.
+    required: false
+    default: ""
+  channel:
+    description: A moving Rust channel to install and update, such as `stable`, `beta` or `nightly`.
     required: false
     default: ""
   cargo-hack:
@@ -20,11 +25,28 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Install Rust
-      uses: dtolnay/rust-toolchain@2c7215f132e9ebf062739d9130488b56d53c060c # master
+    - name: Use the CI mise environment
+      shell: bash
+      run: echo "MISE_ENV=ci" >> "$GITHUB_ENV"
+    - name: Install Rust through mise
+      uses: jdx/mise-action@9149ea85001c7435d5a66bb127d6a1b6227cb0a5 # v5.0.0
       with:
-        toolchain: ${{ env.RUSTUP_TOOLCHAIN }}
-        components: ${{ inputs.components }}
+        version: "2026.10.7" # MISE_VERSION
+        install_args: rust mr-boxington ${{ inputs.channel && format('rust@{0}', inputs.channel) || '' }} ${{ inputs.tools }}
+    - name: Update the Rust channel
+      if: ${{ inputs.channel != '' }}
+      shell: bash
+      # mise install keeps a channel it has installed before; upgrade updates it.
+      env:
+        CHANNEL: ${{ inputs.channel }}
+      run: mise upgrade "rust@${CHANNEL}"
+    - name: Name the pinned toolchains
+      shell: bash
+      # The value is the nightly that mise reads from this repository's own
+      # mise.toml, which is no less trusted than the code the job builds.
+      run: | # zizmor: ignore[github-env]
+        versions="$(mise ls --current --json rust | jq -r '.[].version')"
+        echo "RUST_NIGHTLY=$(grep '^nightly-' <<< "${versions}")" >> "$GITHUB_ENV"
     - name: Initialize cache
       uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
     - name: Install cargo-hack

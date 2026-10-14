@@ -10,7 +10,7 @@ env:
   CARGO_TERM_COLOR: always
   CLICOLOR: 1
   # LINT.IfChange(msrv)
-  RUSTUP_TOOLCHAIN: "1.97.1"
+  RUSTUP_TOOLCHAIN: "1.99.0"
   # LINT.ThenChange(//Cargo.toml:msrv)
 concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}"
@@ -18,7 +18,7 @@ concurrency:
 jobs:
   pre-commit:
     name: pre-commit
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-2vcpu-ubuntu-2404
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -28,5 +28,5 @@ jobs:
         uses: j178/prek-action@4e14d07f9231acabce116ccfca13b13dd9755ece # v3.0.0
         with:
           # LINT.IfChange(prek_version)
-          prek-version: "0.4.13"
+          prek-version: "0.5.5"
           # LINT.ThenChange(//mise.toml:prek_version)
