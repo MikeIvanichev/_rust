@@ -15,4 +15,4 @@ allowed_types = [
   "test",
 ]
 ignore_author_re = "(dependabot|renovate)"
-merge_commit = true
+merge_commit = false
