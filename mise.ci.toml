@@ -1,6 +1,6 @@
 [env]
 # LINT.IfChange(msrv)
-RUSTUP_TOOLCHAIN = "1.99.0"
+RUSTUP_TOOLCHAIN = "1.99.1"
 # LINT.ThenChange(//Cargo.toml:msrv)
 # rust-cache saves target/, so it must be a real directory, not a link into
 # the mbx cache.
