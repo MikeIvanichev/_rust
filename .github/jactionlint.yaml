@@ -1,7 +1,4 @@
 profile: default
-self-hosted-runner:
-  labels:
-    - blacksmith-*
 rules:
   missing-timeout:
     default-minutes: 30

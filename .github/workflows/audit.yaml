@@ -21,7 +21,7 @@ jobs:
       contents: none
     name: Audit
     needs: [advisories, cargo_deny, actions]
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     if: always()
     steps:
@@ -34,7 +34,7 @@ jobs:
       contents: read
       issues: write
       checks: write
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     continue-on-error: true
     steps:
@@ -53,7 +53,7 @@ jobs:
       contents: read
       issues: write
       checks: write
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - name: Checkout repository
@@ -67,7 +67,7 @@ jobs:
           rust-version: ${{ env.RUSTUP_TOOLCHAIN }}
   actions:
     name: Actions
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
       security-events: write
@@ -86,7 +86,7 @@ jobs:
           advanced-security: ${{ github.event.repository.visibility == 'public' || vars.ENABLE_CODE_SCANNING == 'true' }}
   jactionlint:
     name: jactionlint (trial)
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     continue-on-error: true
     permissions:

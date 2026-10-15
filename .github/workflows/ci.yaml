@@ -18,7 +18,7 @@ jobs:
       contents: none
     name: CI
     needs: [test, msrv, lockfile, docs, formatting, clippy, minimal-versions, coverage]
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     if: always()
     steps:
@@ -29,7 +29,7 @@ jobs:
     name: Test
     strategy:
       matrix:
-        os: ["blacksmith-2vcpu-ubuntu-2404", "blacksmith-2vcpu-windows-2025", "blacksmith-6vcpu-macos-latest"]
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     env:
@@ -50,7 +50,7 @@ jobs:
         run: cargo hack nextest run --each-feature --workspace --no-tests=pass
   msrv:
     name: Check MSRV
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - name: Checkout repository
@@ -65,7 +65,7 @@ jobs:
         run: cargo hack check --each-feature --locked --rust-version --workspace --all-targets --keep-going
   minimal-versions:
     name: Minimal versions
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - name: Checkout repository
@@ -80,7 +80,7 @@ jobs:
         run: cargo check --workspace --all-features --locked --keep-going
   lockfile:
     name: Lockfile
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - name: Checkout repository
@@ -93,7 +93,7 @@ jobs:
         run: cargo update --workspace --locked
   docs:
     name: Docs
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - name: Checkout repository
@@ -108,7 +108,7 @@ jobs:
         run: cargo test --profile testing --workspace --all-features --doc --no-fail-fast
   formatting:
     name: Formatting
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - name: Checkout repository
@@ -130,7 +130,7 @@ jobs:
         # LINT.ThenChange(//justfile:check_fmt)
   clippy:
     name: Clippy
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
       contents: read
@@ -176,7 +176,7 @@ jobs:
   coverage:
     name: Coverage
     environment: codecov
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - name: Checkout repository

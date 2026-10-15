@@ -16,10 +16,10 @@ jobs:
     name: Test
     strategy:
       matrix:
-        os: ["blacksmith-2vcpu-ubuntu-2404", "blacksmith-2vcpu-windows-2025", "blacksmith-6vcpu-macos-latest"]
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
         rust: ["stable", "beta"]
         include:
-          - os: blacksmith-2vcpu-ubuntu-2404
+          - os: ubuntu-latest
             rust: "nightly"
     continue-on-error: ${{ matrix.rust != 'stable' }}
     runs-on: ${{ matrix.os }}
@@ -45,7 +45,7 @@ jobs:
         run: cargo +${{ matrix.rust }} test --workspace --all-features --doc --no-fail-fast
   latest:
     name: Check latest dependencies
-    runs-on: blacksmith-2vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
       CARGO_RESOLVER_INCOMPATIBLE_RUST_VERSIONS: allow
