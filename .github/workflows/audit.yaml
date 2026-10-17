@@ -99,7 +99,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Install jactionlint
-        uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
+        uses: jdx/mise-action@08ae2a091c038e1e05ec6f5115dc5c69d5a2a6b8 # v5.1.2
         with:
           # LINT.IfChange(mise_version)
           version: "2026.10.10" # MISE_VERSION
@@ -107,7 +107,7 @@ jobs:
           install_args: jactionlint shellcheck
       - name: Run jactionlint
         # LINT.IfChange(jactionlint_version)
-        uses: jdx/jactionlint@a0bb9f012b6b5760c17c9ccd040001d08002a10e # v2.1.0
+        uses: jdx/jactionlint@1027f0a131ab98bc7e191d995bfa15dbed5bbf8f # v2.2.0
         # LINT.ThenChange(//mise.toml:jactionlint_version)
         with:
           executable: jactionlint
