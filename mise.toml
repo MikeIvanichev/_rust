@@ -24,7 +24,7 @@ rust = [
   ] },
   # LINT.ThenChange(//Cargo.toml:msrv)
 ]
-mr-boxington = "1.23.0"
+mr-boxington = "1.24.0"
 "cargo:cargo-deny" = { version = "0.20.2", depends = "rust" }
 "cargo:cargo-hack" = { version = "0.6.45", depends = "rust" }
 "cargo:cargo-llvm-cov" = { version = "0.9.1", depends = "rust" }
@@ -39,7 +39,7 @@ committed = "1.1.11"
 # )
 git-cliff = "2.14.2"
 # LINT.IfChange(jactionlint_version)
-jactionlint = "2.1.0"
+jactionlint = "2.2.0"
 # LINT.ThenChange(//.github/workflows/audit.yaml:jactionlint_version)
 just = "1.58.0"
 # LINT.IfChange(prek_version)
