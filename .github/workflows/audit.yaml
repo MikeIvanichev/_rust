@@ -79,7 +79,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Run zizmor
-        uses: zizmorcore/zizmor-action@cc914d7f3750a2d13d75c7f184a1060aa0e9d482 # v0.6.4
+        uses: zizmorcore/zizmor-action@85b2b9fb8e3325e7a23d7d0a9d7ba5ae0f999e3e # v0.7.1
         with:
           # Public repos get code scanning automatically. Private repos can set
           # ENABLE_CODE_SCANNING=true when GitHub code scanning is enabled.
@@ -99,15 +99,15 @@ jobs:
         with:
           persist-credentials: false
       - name: Install jactionlint
-        uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
+        uses: jdx/mise-action@fc42bcc7ddbf51124c30f95a877a0c5168a3bfde # v5.2.1
         with:
           # LINT.IfChange(mise_version)
-          version: "2026.10.10" # MISE_VERSION
+          version: "2026.10.17" # MISE_VERSION
           # LINT.ThenChange(//.github/actions/setup-rust/action.yaml:mise_version)
           install_args: jactionlint shellcheck
       - name: Run jactionlint
         # LINT.IfChange(jactionlint_version)
-        uses: jdx/jactionlint@a0bb9f012b6b5760c17c9ccd040001d08002a10e # v2.1.0
+        uses: jdx/jactionlint@1027f0a131ab98bc7e191d995bfa15dbed5bbf8f # v2.2.0
         # LINT.ThenChange(//mise.toml:jactionlint_version)
         with:
           executable: jactionlint
