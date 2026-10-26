@@ -2,7 +2,7 @@
 # The first toolchain is the development default; mise.ci.toml makes the
 # MSRV the default in CI.
 rust = [
-  { version = "nightly-2026-10-19", components = [
+  { version = "nightly-2026-10-26", components = [
     "rustc",
     "cargo",
     "rustfmt",
