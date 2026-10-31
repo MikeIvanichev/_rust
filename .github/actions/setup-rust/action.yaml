@@ -32,7 +32,7 @@ runs:
       uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
       with:
         # LINT.IfChange(mise_version)
-        version: "2026.10.10" # MISE_VERSION
+        version: "2026.10.25" # MISE_VERSION
         # LINT.ThenChange(//.github/workflows/audit.yaml:mise_version)
         install_args: rust mr-boxington ${{ inputs.channel && format('rust@{0}', inputs.channel) || '' }} ${{ inputs.tools }}
     - name: Update the Rust channel
