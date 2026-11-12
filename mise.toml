@@ -14,7 +14,7 @@ rust = [
     "rust-src",
   ], mr_boxington = true },
   # LINT.IfChange(msrv)
-  { version = "1.99.1", components = [
+  { version = "1.100.0", components = [
     "rustc",
     "cargo",
     "rustfmt",
