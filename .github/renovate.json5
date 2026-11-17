@@ -1,5 +1,7 @@
 {
-  extends: ["helpers:pinGitHubActionDigests"],
+  extends: [
+    'helpers:pinGitHubActionDigests',
+  ],
   schedule: [
     'before 5am on the first day of the month',
   ],
@@ -9,14 +11,14 @@
   semanticCommits: 'enabled',
   commitMessageLowerCase: 'never',
   configMigration: true,
-  dependencyDashboard: true,
-  "pre-commit": {
-    enabled: true
+  dependencyDashboard: {
+    enabled: true,
+  },
+  'pre-commit': {
+    enabled: true,
   },
   customManagers: [
     {
-      // Renovate has no datasource for a dated nightly, so read the date from
-      // the nightly Rust entry in mise.toml and offer the custom datasource below.
       customType: 'regex',
       managerFilePatterns: [
         '/^mise\\.toml$/',
@@ -39,8 +41,6 @@
       matchStrings: [
         'rust-version\\s*=\\s*"(?<currentValue>\\d+\\.\\d+\\.\\d+)"',
         'RUSTUP_TOOLCHAIN(:|\\s*=)\\s*"(?<currentValue>\\d+\\.\\d+\\.\\d+)"',
-        // The MSRV entry in mise.toml's Rust list; the leading newline keeps
-        // the `"cargo:…" = { version = … }` tool entries out.
         '\\n\\s+\\{ version = "(?<currentValue>\\d+\\.\\d+\\.\\d+)"',
         'rust:\\s*"(?<currentValue>\\d+\\.\\d+\\.\\d+)"',
       ],
@@ -77,7 +77,6 @@
     },
   ],
   customDatasources: {
-    // The newest nightly that ships rustfmt; some nightlies lack it.
     'rust-nightly': {
       defaultRegistryUrlTemplate: 'https://rust-lang.github.io/rustup-components-history/x86_64-unknown-linux-gnu/rustfmt.json',
       format: 'json',
@@ -88,9 +87,6 @@
   },
   packageRules: [
     {
-      // Nightlies release daily; a weekly bump keeps the pinned toolchain
-      // ahead of the latest beta without the churn (and breakage risk) of
-      // tracking every nightly.
       commitMessageTopic: 'Rust toolchain',
       matchManagers: [
         'custom.regex',
@@ -143,7 +139,6 @@
       groupName: 'compatible (actions)',
     },
     {
-      // The rust-nightly custom manager updates the pinned nightly.
       matchManagers: [
         'mise',
       ],
@@ -179,12 +174,6 @@
       ],
       groupName: 'committed',
     },
-    // Goals:
-    // - Keep version reqs low, ignoring compatible normal/build dependencies
-    // - Take advantage of latest dev-dependencies
-    // - Rollup safe upgrades to reduce CI runner load
-    // - Help keep number of versions down by always using latest breaking change
-    // - Have lockfile and manifest in-sync
     {
       matchManagers: [
         'cargo',
