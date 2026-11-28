@@ -43,7 +43,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Lint advisories
-        uses: EmbarkStudios/cargo-deny-action@3c6349835b2b7b196a839186cb8b78e02f7b5f25 # v2.1.1
+        uses: EmbarkStudios/cargo-deny-action@81891abc19297b21343b15ef67dc61e4aea74fda # v2.1.4
         with:
           command: check advisories
           rust-version: ${{ env.RUSTUP_TOOLCHAIN }}
@@ -61,7 +61,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Lint bans, licenses, and sources
-        uses: EmbarkStudios/cargo-deny-action@3c6349835b2b7b196a839186cb8b78e02f7b5f25 # v2.1.1
+        uses: EmbarkStudios/cargo-deny-action@81891abc19297b21343b15ef67dc61e4aea74fda # v2.1.4
         with:
           command: check bans licenses sources
           rust-version: ${{ env.RUSTUP_TOOLCHAIN }}
@@ -79,7 +79,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Run zizmor
-        uses: zizmorcore/zizmor-action@cc914d7f3750a2d13d75c7f184a1060aa0e9d482 # v0.6.4
+        uses: zizmorcore/zizmor-action@1b4550e929643b8b26a62303c6bd64814271a4f1 # v0.9.2
         with:
           # Public repos get code scanning automatically. Private repos can set
           # ENABLE_CODE_SCANNING=true when GitHub code scanning is enabled.
@@ -99,15 +99,15 @@ jobs:
         with:
           persist-credentials: false
       - name: Install jactionlint
-        uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
+        uses: jdx/mise-action@924e7c586e33d7d4bae9c14e26c5d22e2beb6e78 # v5.3.0
         with:
           # LINT.IfChange(mise_version)
-          version: "2026.10.10" # MISE_VERSION
+          version: "2026.11.14" # MISE_VERSION
           # LINT.ThenChange(//.github/actions/setup-rust/action.yaml:mise_version)
           install_args: jactionlint shellcheck
       - name: Run jactionlint
         # LINT.IfChange(jactionlint_version)
-        uses: jdx/jactionlint@a0bb9f012b6b5760c17c9ccd040001d08002a10e # v2.1.0
+        uses: jdx/jactionlint@72c00452809bcca05b8bc12acdcf15dd7a9c1c5e # v2.6.0
         # LINT.ThenChange(//mise.toml:jactionlint_version)
         with:
           executable: jactionlint
